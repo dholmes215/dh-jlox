@@ -34,5 +34,5 @@ testing {
 
 application {
     // Define the main class for the application.
-    mainClass = 'us.dholmes.lox.App'
+    mainClass = 'us.dholmes.lox.Lox'
 }
