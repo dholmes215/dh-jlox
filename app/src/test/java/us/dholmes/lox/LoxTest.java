@@ -3,12 +3,33 @@
  */
 package us.dholmes.lox;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LoxTest {
-    @Test void appHasAGreeting() {
-        Lox classUnderTest = new Lox();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+
+    private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private static final PrintStream originalOut = System.out;
+
+    @BeforeAll
+    public static void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @AfterAll
+    public static void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
+    @Test void printHelloWorld() {
+        Lox lox = new Lox();
+        lox.run("print \"Hello, world!\"");
+        assertEquals("Hello, world!", outContent.toString());
     }
 }
