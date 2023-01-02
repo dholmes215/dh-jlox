@@ -3,7 +3,7 @@
  * Copyright (c) 2022 David Holmes
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package us.dholmes.lox;
+package com.craftinginterpreters.lox;
 
 public class Token {
     final TokenType type;

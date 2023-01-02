@@ -3,14 +3,14 @@
  * Copyright (c) 2022 David Holmes
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package us.dholmes.lox;
+package com.craftinginterpreters.lox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static us.dholmes.lox.TokenType.*;
+import static com.craftinginterpreters.lox.TokenType.*;
 
 public class Scanner {
     private final String source;

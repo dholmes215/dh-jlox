@@ -3,7 +3,7 @@
  * Copyright (c) 2022 David Holmes
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
-package us.dholmes.lox;
+package com.craftinginterpreters.lox;
 
 import java.io.BufferedReader;
 import java.io.IOException;
