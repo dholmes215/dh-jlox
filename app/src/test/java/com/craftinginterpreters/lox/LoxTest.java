@@ -28,8 +28,7 @@ class LoxTest {
     }
 
     @Test void printHelloWorld() {
-        Lox lox = new Lox();
-        lox.run("print \"Hello, world!\"");
+        Lox.run("print \"Hello, world!\"");
         assertEquals("Hello, world!", outContent.toString());
     }
 }
