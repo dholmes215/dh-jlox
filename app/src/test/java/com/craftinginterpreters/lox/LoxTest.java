@@ -36,7 +36,7 @@ class LoxTest {
         assertEquals("Hello, world!\n", outContent.toString().replaceAll("\r\n", "\n"));
     }
 
-    private static String scopeTestProgram = """
+    private static final String scopeTestProgram = """
             var a = "global a";
             var b = "global b";
             var c = "global c";
@@ -57,7 +57,7 @@ class LoxTest {
             print b;
             print c;""";
 
-    private static String scopeTestProgramExpectedOutput = """
+    private static final String scopeTestProgramExpectedOutput = """
             inner a
             outer b
             global c
@@ -70,8 +70,8 @@ class LoxTest {
             """;
 
     /**
-     * Unit test running the test program at the end of chapter 6:
-     *   https://craftinginterpreters.com/statements-and-state.html
+     * Unit test running <a href="https://craftinginterpreters.com/statements-and-state.html">the test program at the
+     * end of chapter 6</a>.
      */
     @Test void runScopeTestProgram() {
         Lox.run(scopeTestProgram);

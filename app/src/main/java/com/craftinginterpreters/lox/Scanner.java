@@ -164,7 +164,7 @@ public class Scanner {
             return;
         }
 
-        // The closing ".
+        // The closing '"'.
         advance();
 
         // Trim the surrounding quotes.
