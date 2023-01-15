@@ -4,6 +4,7 @@
 package com.craftinginterpreters.lox;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +28,53 @@ class LoxTest {
         System.setOut(originalOut);
     }
 
+    @AfterEach
+    public void resetOutput() { outContent.reset(); }
+
     @Test void printHelloWorld() {
         Lox.run("print \"Hello, world!\";");
-        assertEquals("Hello, world!\n", outContent.toString().replaceAll("\r", ""));
+        assertEquals("Hello, world!\n", outContent.toString().replaceAll("\r\n", "\n"));
+    }
+
+    private static String scopeTestProgram = """
+            var a = "global a";
+            var b = "global b";
+            var c = "global c";
+            {
+              var a = "outer a";
+              var b = "outer b";
+              {
+                var a = "inner a";
+                print a;
+                print b;
+                print c;
+              }
+              print a;
+              print b;
+              print c;
+            }
+            print a;
+            print b;
+            print c;""";
+
+    private static String scopeTestProgramExpectedOutput = """
+            inner a
+            outer b
+            global c
+            outer a
+            outer b
+            global c
+            global a
+            global b
+            global c
+            """;
+
+    /**
+     * Unit test running the test program at the end of chapter 6:
+     *   https://craftinginterpreters.com/statements-and-state.html
+     */
+    @Test void runScopeTestProgram() {
+        Lox.run(scopeTestProgram);
+        assertEquals(scopeTestProgramExpectedOutput, outContent.toString().replaceAll("\r\n", "\n"));
     }
 }
