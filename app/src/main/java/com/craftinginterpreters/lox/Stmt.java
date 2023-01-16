@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2021 Robert Nystrom
+ * Copyright (c) 2023 David Holmes
+ * Licensed under the MIT license. See LICENSE file in the project root for details.
+ */
 package com.craftinginterpreters.lox;
 
 import java.util.List;
@@ -5,10 +10,14 @@ import java.util.List;
 abstract class Stmt {
     interface Visitor<R> {
         R visitBlockStmt(Block stmt);
+
         R visitExpressionStmt(Expression stmt);
+
         R visitPrintStmt(Print stmt);
+
         R visitVarStmt(Var stmt);
     }
+
     static class Block extends Stmt {
         Block(List<Stmt> statements) {
             this.statements = statements;
@@ -21,6 +30,7 @@ abstract class Stmt {
 
         final List<Stmt> statements;
     }
+
     static class Expression extends Stmt {
         Expression(Expr expression) {
             this.expression = expression;
@@ -33,6 +43,7 @@ abstract class Stmt {
 
         final Expr expression;
     }
+
     static class Print extends Stmt {
         Print(Expr expression) {
             this.expression = expression;
@@ -45,6 +56,7 @@ abstract class Stmt {
 
         final Expr expression;
     }
+
     static class Var extends Stmt {
         Var(Token name, Expr initializer) {
             this.name = name;

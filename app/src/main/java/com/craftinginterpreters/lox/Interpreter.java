@@ -23,41 +23,41 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         Object right = evaluate(expr.right);
 
         switch (expr.operator.type) {
-            case GREATER:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left > (double)right;
-            case GREATER_EQUAL:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left >= (double)right;
-            case LESS:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left < (double)right;
-            case LESS_EQUAL:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left <= (double)right;
-            case MINUS:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left - (double)right;
-            case SLASH:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left / (double)right;
-            case STAR:
-                checkNumberOperands(expr.operator, left, right);
-                return (double)left * (double)right;
-            case PLUS:
-                if (left instanceof Double && right instanceof Double) {
-                    return (double)left + (double)right;
-                }
+        case GREATER:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left > (double) right;
+        case GREATER_EQUAL:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left >= (double) right;
+        case LESS:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left < (double) right;
+        case LESS_EQUAL:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left <= (double) right;
+        case MINUS:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left - (double) right;
+        case SLASH:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left / (double) right;
+        case STAR:
+            checkNumberOperands(expr.operator, left, right);
+            return (double) left * (double) right;
+        case PLUS:
+            if (left instanceof Double && right instanceof Double) {
+                return (double) left + (double) right;
+            }
 
-                if (left instanceof String && right instanceof String) {
-                    return left + (String)right;
-                }
+            if (left instanceof String && right instanceof String) {
+                return left + (String) right;
+            }
 
-                throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
-            case BANG_EQUAL:
-                return !isEqual(left, right);
-            case EQUAL_EQUAL:
-                return isEqual(left, right);
+            throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
+        case BANG_EQUAL:
+            return !isEqual(left, right);
+        case EQUAL_EQUAL:
+            return isEqual(left, right);
         }
 
         // Unreachable.
@@ -90,11 +90,11 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         Object right = evaluate(expr.right);
 
         switch (expr.operator.type) {
-            case BANG:
-                return !isTruthy(right);
-            case MINUS:
-                checkNumberOperand(expr.operator, right);
-                return -(double)right;
+        case BANG:
+            return !isTruthy(right);
+        case MINUS:
+            checkNumberOperand(expr.operator, right);
+            return -(double) right;
         }
 
         // Unreachable.
@@ -126,7 +126,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             return false;
         }
         if (object instanceof Boolean) {
-            return (boolean)object;
+            return (boolean) object;
         }
         return true;
     }
@@ -144,7 +144,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             for (Stmt statement : statements) {
                 execute(statement);
             }
-        } catch(RuntimeError error) {
+        } catch (RuntimeError error) {
             Lox.runtimeError(error);
         }
     }

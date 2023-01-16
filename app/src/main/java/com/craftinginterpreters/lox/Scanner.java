@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021 Robert Nystrom
- * Copyright (c) 2022 David Holmes
+ * Copyright (c) 2022-2023 David Holmes
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
 package com.craftinginterpreters.lox;
@@ -61,61 +61,83 @@ public class Scanner {
     private void scanToken() {
         char c = advance();
         switch (c) {
-            case '(': addToken(LEFT_PAREN); break;
-            case ')': addToken(RIGHT_PAREN); break;
-            case '{': addToken(LEFT_BRACE); break;
-            case '}': addToken(RIGHT_BRACE); break;
-            case ',': addToken(COMMA); break;
-            case '.': addToken(DOT); break;
-            case '-': addToken(MINUS); break;
-            case '+': addToken(PLUS); break;
-            case ';': addToken(SEMICOLON); break;
-            case '*': addToken(STAR); break;
-            case '!':
-                addToken(match('=') ? BANG_EQUAL : BANG);
-                break;
-            case '=':
-                addToken(match('=') ? EQUAL_EQUAL : EQUAL);
-                break;
-            case '<':
-                addToken(match('=') ? LESS_EQUAL : LESS);
-                break;
-            case '>':
-                addToken(match('=') ? GREATER_EQUAL : GREATER);
-                break;
-            case '/':
-                if (match('/')) {
-                    // A comment goes until the end of the line.
-                    while (peek() != '\n' && !isAtEnd()) {
-                        advance();
-                    }
-                } else {
-                    addToken(SLASH);
+        case '(':
+            addToken(LEFT_PAREN);
+            break;
+        case ')':
+            addToken(RIGHT_PAREN);
+            break;
+        case '{':
+            addToken(LEFT_BRACE);
+            break;
+        case '}':
+            addToken(RIGHT_BRACE);
+            break;
+        case ',':
+            addToken(COMMA);
+            break;
+        case '.':
+            addToken(DOT);
+            break;
+        case '-':
+            addToken(MINUS);
+            break;
+        case '+':
+            addToken(PLUS);
+            break;
+        case ';':
+            addToken(SEMICOLON);
+            break;
+        case '*':
+            addToken(STAR);
+            break;
+        case '!':
+            addToken(match('=') ? BANG_EQUAL : BANG);
+            break;
+        case '=':
+            addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+            break;
+        case '<':
+            addToken(match('=') ? LESS_EQUAL : LESS);
+            break;
+        case '>':
+            addToken(match('=') ? GREATER_EQUAL : GREATER);
+            break;
+        case '/':
+            if (match('/')) {
+                // A comment goes until the end of the line.
+                while (peek() != '\n' && !isAtEnd()) {
+                    advance();
                 }
+            } else {
+                addToken(SLASH);
+            }
 
-                break;
+            break;
 
-            case ' ':
-            case '\r':
-            case '\t':
-                // Ignore whitespace.
-                break;
+        case ' ':
+        case '\r':
+        case '\t':
+            // Ignore whitespace.
+            break;
 
-            case '\n':
-                line++;
-                break;
+        case '\n':
+            line++;
+            break;
 
-            case '"': string(); break;
+        case '"':
+            string();
+            break;
 
-            default:
-                if (isDigit(c)) {
-                    number();
-                } else if (isAlpha(c)) {
-                    identifier();
-                } else {
-                    Lox.error(line, "Unexpected character.");
-                }
-                break;
+        default:
+            if (isDigit(c)) {
+                number();
+            } else if (isAlpha(c)) {
+                identifier();
+            } else {
+                Lox.error(line, "Unexpected character.");
+            }
+            break;
         }
     }
 
@@ -216,9 +238,7 @@ public class Scanner {
     }
 
     private boolean isAlpha(char c) {
-        return (c >= 'a' && c <= 'z') ||
-                (c >= 'A' && c <= 'Z') ||
-                c == '_';
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
     }
 
     private boolean isAlphaNumeric(char c) {

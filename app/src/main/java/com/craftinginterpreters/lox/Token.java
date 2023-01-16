@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021 Robert Nystrom
- * Copyright (c) 2022 David Holmes
+ * Copyright (c) 2022-2023 David Holmes
  * Licensed under the MIT license. See LICENSE file in the project root for details.
  */
 package com.craftinginterpreters.lox;
